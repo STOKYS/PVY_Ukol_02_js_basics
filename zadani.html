@@ -10,6 +10,12 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <style>
+    #priklad11list>li {
+      float: left;
+      width: 10%;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,10 +34,11 @@
           </p>
         </blockquote>
         <div class="bg-info p-3">
-          <!-- -->
-          <a href=""></a>
-          <a href=""></a>
-          <a href=""></a>
+          <ul>
+            <li><a href="http://www.histography.io/">Histography</a></li>
+            <li><a href="http://radio.garden/">Radio garden</a></li>
+            <li><a href="https://airview.blueair.com/">Air view</a></li>
+          </ul>
         </div>
       </div>
       <div class="col-sm-6 bg-secondary text-light p-5">
@@ -42,12 +49,12 @@
         </blockquote>
         <div class="bg-info p-3">
           <ol>
-            <!-- -->
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Statements should end with a semicolon.</li>
+            <li>It's case sensitive (Promena and promena are two diffirent things).</li>
+            <li>Strings need to be in (double or single) quotation marks "" / ''.</li>
+            <li>You don't have to specify variable data type.</li>
+            <li>JavaScript uses Unicode.</li>
+            <li>You can declare variable either by <code>let</code> or <code>var</code>></li>
           </ol>
         </div>
       </div>
@@ -64,17 +71,19 @@
         </blockquote>
         <div class="bg-light p-3">
           <code>
-            // 1. Vložit kód do tagu script<br />
+            // 1. Vložit kód do tagu script<br>
             &lt;script&gt;console.log('Hello');&lt;/script&gt;
+            <br>
           </code>
           <code>
-            // 2. Přidat attribute src do tagu script<br />
-            &lt;script&gt;console.log('Hello');&lt;/script&gt;
+            // 2. Přidat attribute src do tagu script<br>
+            &lt;script src="../script.js"&gt;&lt;/script&gt;
+            <br>
           </code>
           <code>
-            <!---->
-            // 3.???<br />
-            &lt;script&gt;console.log('Hello');&lt;/script&gt;
+            // 3. Přidat event na element<br>
+            &lt;button onclick="mojeFunkceMath()"&gt;Click me&lt;/button&gt;
+            <br>
           </code>
         </div>
       </div>
@@ -93,7 +102,7 @@
           <code>
             let x = 0; // s přiřazením hodnoty<br />
             let x; // bez přiřazení hodnoty<br />
-            let x = null; // bez hodnoty<br />
+            let x = null; // bez hodnoty / neznámá hodnota<br />
             let x = 4; // celé číslo (typ number)<br />
             let x = 2; // reálné číslo (typ number)<br />
             let 48.757; // zápis desetinného čísla pomocí exponentu<br />
@@ -177,7 +186,7 @@
           </code>
           <hr />
           <p class="alert alert-primary" role="alert">
-            Varování:
+            Varování: Nelze upravovat styly (Nevypadají hezky). Některé prohlížeče se je mohou pokusit zrušit / zastavit
           </p>
         </div>
       </div>
@@ -205,10 +214,11 @@
           </ol>
         </blockquote>
         <div class="bg-info p-3" id="sedmy">
-          <p id="priklad7">Zde bude řešení.</p>
-          <button id="priklad7btn">Set data</button>
+          <p id="priklad7"></p>
+          <button id="priklad7btn">Zadat info</button>
         </div>
         <script>
+          const priklad7element = document.getElementById("priklad7")
           let you = {
             name: "",
             lastName: "",
@@ -221,12 +231,20 @@
             you.height = prompt("Height: (cm)");
             you.weight = prompt("Weight: (kg)");
             bmi = you.weight / ((you.height / 100) * (you.height / 100));
-            document.getElementById("priklad7").innerHTML = "<p>Good day Mr./Ms." + you.name + "" + you.lastName +
-              ".</p>"
-            document.getElementById("priklad7").innerHTML +=
-              `<p>Based on your height of <b>${you.height}cm</b> and your weight <b>${you.weight}kg</b>.</p>`
-            document.getElementById("priklad7").innerHTML += "We calculate that your BMI is \"" + bmi.toFixed(2) +
-              "\""
+            priklad7element.innerHTML = "Good day Mr./Ms. " + you.name + " " + you.lastName +
+              ".<br>"
+            priklad7element.innerHTML +=
+              `Based on your height of <b>${you.height}cm</b> and your weight <b>${you.weight}kg.<br>`
+            priklad7element.innerHTML += "We calculate that your BMI is <b>" + bmi.toFixed(2) + "</b>.<br>"
+            if (bmi < 18.5) {
+              priklad7element.innerHTML += "You are \"Underweight\"."
+            } else if (bmi >= 18.5 && bmi < 25) {
+              priklad7element.innerHTML += "You have \"Normal weight\"."
+            } else if (bmi >= 25 && bmi < 30) {
+              priklad7element.innerHTML += "You are \"Overweight\"."
+            } else {
+              priklad7element.innerHTML += "You are \"Obese\",you should go se a doctor."
+            }
           })
         </script>
       </div>
@@ -284,18 +302,32 @@
           </ol>
         </blockquote>
         <div class="bg-info p-3">
+          <p id="priklad9"></p>
           <button id="btn9">
             Zadej číslo
           </button>
         </div>
         <script>
+          const priklad9ele = document.getElementById("priklad9");
+          let kolik = 0;
           document.getElementById("btn9").addEventListener("click", function () {
             num = prompt("Zadej cislo", "0")
             if (num % 2 == 0) {
               console.log(num + " je sude cislo")
+              if (kolik > 0) {
+                priklad9ele.innerText += `, ${num} je sude cislo`
+              } else {
+                priklad9ele.innerText += `${num} je sude cislo`
+              }
             } else {
               console.log(num + " je liche cislo")
+              if (kolik > 0) {
+                priklad9ele.innerText += `, ${num} je liche cislo`
+              } else {
+                priklad9ele.innerText += ` ${num} je liche cislo`
+              }
             }
+            kolik++;
           })
         </script>
       </div>
@@ -319,6 +351,7 @@
           </ol>
         </blockquote>
         <div class="bg-light p-3">
+          <p id=priklad10 style="color: black;"></p>
           <a href="JavaScript:denVTydnu()">Vypiš den</a>
         </div>
         <script>
@@ -326,25 +359,26 @@
             var den = new Date().getDay();
             switch (den) {
               case 1:
-                den = "Pondeli"
+                den = "Pondělí"
                 break;
               case 2:
-                den = "Utery"
+                den = "Útery"
                 break;
               case 3:
-                den = "Streda"
+                den = "Středa"
                 break;
               case 4:
-                den = "Ctvrtek"
+                den = "Čtvrtek"
                 break;
               case 5:
-                den = "Patek"
+                den = "Pátek"
                 break;
               default:
-                den = "Vikend"
+                den = "Víkend"
                 break;
             };
-            alert(den)
+            alert(`Dnes je ${den}`)
+            document.getElementById("priklad10").innerText = `Dnes je ${den}.`
           }
         </script>
       </div>
@@ -359,23 +393,27 @@
           </p>
         </blockquote>
         <div class="bg-info p-3" id="jedenacty">
+          <ul id="priklad11list">
+
+          </ul>
+          <button id="priklad11btn" style="margin-right: 80%;">Zadat roky</button>
         </div>
         <script>
-          let year = 1880
-          let endYear = 2004
-          document.getElementById("jedenacty").innerHTML = "<ul>"
-          for (year; year <= endYear; year++) {
-            if (year % 4 == 0) {
-              if (year % 100 == 0) {
-                if (year % 400 == 0) {
-                  document.getElementById("jedenacty").innerHTML += `<li>${year}</li>`
+          document.getElementById("priklad11btn").addEventListener("click", function () {
+            year = prompt("Zadej počáteční rok", "1880")
+            endYear = prompt("Zadej konečný rok", "2020")
+            for (year; year <= endYear; year++) {
+              if (year % 4 == 0) {
+                if (year % 100 == 0) {
+                  if (year % 400 == 0) {
+                    document.getElementById("priklad11list").innerHTML += `<li>${year}</li>`
+                  }
+                } else {
+                  document.getElementById("priklad11list").innerHTML += `<li>${year}</li>`
                 }
-              } else {
-                document.getElementById("jedenacty").innerHTML += `<li>${year}</li>`
               }
             }
-          }
-          document.getElementById("jedenacty").innerHTML += "</ul>"
+          })
         </script>
       </div>
       <div class="col-sm-6 bg-secondary text-light p-5">
@@ -387,14 +425,40 @@
         </blockquote>
         <div class="bg-info p-3" id="dvanacty">
           <p id="dvanactyText"></p>
+          <button id="btn121">Náhodné číslo</button>
+          <button id="btn122">Zadat číslo</button>
         </div>
         <script>
-          let rand = Math.floor(Math.random() * 10000)
-          if (isPrime(rand) == true || rand == 2){
-            document.getElementById("dvanactyText").innerHTML = `Cislo ${rand} je prvocislo`
-          } else {
-            document.getElementById("dvanactyText").innerHTML = `Cislo ${rand} neni prvocislo`
+          document.getElementById("btn121").addEventListener("click", randomChose)
+          document.getElementById("btn122").addEventListener("click", manualNumber)
+          let times = 1
+          function randomChose() {
+            let rand = Math.floor(Math.random() * 10000)
+            prime(rand)
           }
+
+          function manualNumber() {
+            value = prompt("Zadejte číslo", "0")
+            prime(value)
+          }
+
+          function prime(value) {
+            if (isPrime(value) == true && value != 0 && value != 1 || value == 2 ) {
+              if(times > 1){
+                document.getElementById("dvanactyText").innerHTML += `, Číslo ${value} je prvočíslo`
+              } else {
+                document.getElementById("dvanactyText").innerHTML += `Číslo ${value} je prvočíslo`
+              }
+            } else {
+              if(times > 1){
+                document.getElementById("dvanactyText").innerHTML += `, Číslo ${value} není prvočíslo`
+              } else {
+                document.getElementById("dvanactyText").innerHTML += `Číslo ${value} není prvočíslo`
+              }
+            }
+            times++
+          }
+
           function isPrime(num) {
             for (var i = 2; i < num; i++) {
               if (num % i === 0) {
@@ -416,9 +480,95 @@
           </p>
         </blockquote>
         <div class="bg-info p-3" id="trinacty">
+          <p id="priklad13"></p>
         </div>
         <script>
+          const priklad13text = document.getElementById("priklad13")
+          let dayOfMonth = new Date().getDate()
+          let yearNum = new Date().getFullYear()
+          let month = new Date().getMonth()
+          let hour = new Date().getHours()
+          let minutes = new Date().getMinutes()
+          let second = new Date().getSeconds()
+          let dayHere = new Date().getDay();
+          switch (dayHere) {
+            case 1:
+              dayHere = "v: pondělí"
+              break;
+            case 2:
+              dayHere = "v: útery"
+              break;
+            case 3:
+              dayHere = "ve: středa"
+              break;
+            case 4:
+              dayHere = "ve: čtvrtek"
+              break;
+            case 5:
+              dayHere = "v: pátek"
+              break;
+            case 6:
+              dayHere = "v: sobotu"
+              break;
+            case 0:
+              dayHere = "v: neděli"
+              break;
+          };
+          switch (month) {
+            case 0:
+              month = "ledna"
+              break;
+            case 1:
+              month = "února"
+              break;
+            case 2:
+              month = "března"
+              break;
+            case 3:
+              month = "dubna"
+              break;
+            case 4:
+              month = "května"
+              break;
+            case 5:
+              month = "června"
+              break;
+            case 6:
+              month = "července"
+              break;
+            case 7:
+              month = "srpna"
+              break;
+            case 8:
+              month = "září"
+              break;
+            case 9:
+              month = "října"
+              break;
+            case 10:
+              month = "listopadu"
+              break;
+            case 11:
+              month = "prosince"
+              break;
+          };
+          priklad13text.innerText =
+            `Stránka byla otevřena ${dayHere} ${dayOfMonth}.${month} ${yearNum} (${hour}:${minutes}:${second})`
+          const priklad = priklad13text.textContent
+          window.addEventListener("load", function () {
+            setInterval(datePriklad13, 1000)
+          })
 
+          function datePriklad13() {
+            console.log("eh")
+            document.getElementById("priklad13").innerHTML =
+              `${priklad}<br> Nyní je: ${newHour = new Date().getHours()}:${newMin = new Date().getMinutes()}:${newSec = new Date().getSeconds()}`
+            newDay = new Date().getDate()
+            secondsPassed = ((newDay * 86400 + newHour * 3600 + newMin * 60 + newSec) - (dayOfMonth * 86400 + hour *
+              3600 + minutes * 60 + second))
+            document.getElementById("priklad13").innerHTML +=
+              `<br>To znamená že na této stránce jste ztrávil ${secondsPassed} sekund.`
+          }
         </script>
       </div>
       <div class="col-sm-6 bg-secondary text-light p-5">
@@ -429,15 +579,17 @@
           </p>
         </blockquote>
         <div class="bg-info p-3">
-          <img src="img/hrad.webp" class="img-fluid" alt="foto" id="foto">
+          <img src="img/hrad.webp" class="img-fluid" alt="foto" id="foto" style="width:550px; height:324px">
         </div>
         <script>
           arr01 = ["img/hrad.webp", "img/praha.jpg", "img/staromak.jpg", "img/vltava.jpg"]
           window.onload = chooseImg();
-          function chooseImg(){
+
+          function chooseImg() {
             setInterval(setImage, 3000)
           }
-          function setImage(){
+
+          function setImage() {
             randArr = Math.floor(Math.random() * arr01.length)
             document.getElementById("foto").src = arr01[randArr]
           }
@@ -447,7 +599,7 @@
   </main>
   <footer class="text-center mt-5">
     David Stoček, třída IT2
-    <p>1,2,3,6,13</p>
+    <p>1,2</p>
   </footer>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
